@@ -14,6 +14,10 @@ spec:
   targetNamespace: default
   timeout: 3m0s
   wait: true
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
 ---
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
@@ -25,7 +29,3 @@ spec:
   ref:
     branch: main
   url: https://github.com/TomMannson/KubernetesInfra
-  decryption:
-    provider: sops
-    secretRef:
-      name: sops-age
