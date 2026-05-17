@@ -5,3 +5,4 @@ namespace: default
 
 resources:
   - application-config.yaml
+  - application-secret.yaml

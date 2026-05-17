@@ -25,3 +25,7 @@ spec:
   ref:
     branch: main
   url: https://github.com/TomMannson/KubernetesInfra
+  decryption:
+    provider: sops
+    secretRef:
+      name: sops-age
