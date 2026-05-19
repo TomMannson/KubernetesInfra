@@ -6,7 +6,7 @@ metadata:
 spec:
   secretName: legacybuster-wildcard-tls
   issuerRef:
-    name: letsencrypt-clusterIssuer-prod
+    name: letsencrypt-clusterissuer-prod
     kind: ClusterIssuer
   dnsNames:
     - "*.app.legacybuster.com"
