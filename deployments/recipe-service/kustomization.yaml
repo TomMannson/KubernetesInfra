@@ -10,4 +10,4 @@ resources:
 images:
   - name: cookbook-server
     newName: docker.io/tommannson/recipeapp-backend
-    newTag: 0.0.1
+    newTag: 0.0.2
