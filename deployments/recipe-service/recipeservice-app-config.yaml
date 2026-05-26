@@ -9,5 +9,5 @@ metadata:
 data:
   NODE_ENV: "production"
   PORT: "3001"
-  WEB_URL: "https://recipe.app.legacybuster.com"
-  APP_URL: "https://recipe.app.legacybuster.com"
+  WEB_URL: "https://recipes.app.legacybuster.com"
+  APP_URL: "https://recipes.app.legacybuster.com"
