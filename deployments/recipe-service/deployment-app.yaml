@@ -16,17 +16,15 @@ spec:
       labels:
         app: cookbook-server
     spec:
-      # Migracje PRZED startem serwera. `prisma migrate deploy` jest idempotentne,
-      # więc bezpiecznie odpala się przy każdym rolloucie.
-      # initContainers:
-      #   - name: migrate
-      #     image: cookbook-prisma # podmieniany przez images: w kustomization.yaml
-      #     env:
-      #       - name: DATABASE_URL
-      #         valueFrom:
-      #           secretKeyRef:
-      #             name: cookbook-prisma-server-secrets
-      #             key: DATABASE_URL
+      initContainers:
+        - name: migrate
+          image: cookbook-prisma # podmieniany przez images: w kustomization.yaml
+          env:
+            - name: DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: tk-recipeservice-prisma-secret
+                  key: DATABASE_OWNER_URL
       containers:
         - name: server
           image: cookbook-server # podmieniany przez images: w kustomization.yaml
@@ -34,9 +32,9 @@ spec:
             - containerPort: 3001
           envFrom:
             - configMapRef:
-                name: tk-recipeservice-config # nie-sekrety (NODE_ENV, PORT, WEB_URL, APP_URL)
+                name: tk-recipeservice-config
             - secretRef:
-                name: tk-recipeservice-secret # sekrety (DATABASE_URL, auth, R2, ...)
+                name: tk-recipeservice-secret
           readinessProbe:
             httpGet:
               path: /healthz
