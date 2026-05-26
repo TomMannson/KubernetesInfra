@@ -22,7 +22,7 @@ spec:
 apiVersion: source.toolkit.fluxcd.io/v1
 kind: GitRepository
 metadata:
-  name: test
+  name: recipe-service
   namespace: flux-system
 spec:
   interval: 1m0s
