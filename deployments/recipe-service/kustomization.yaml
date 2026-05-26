@@ -14,7 +14,7 @@ resources:
 images:
   - name: cookbook-server
     newName: docker.io/tommannson/recipeapp-backend
-    newTag: 0.0.2
+    newTag: 0.0.3
   - name: cookbook-prisma
     newName: docker.io/tommannson/recipeapp-db
     newTag: 0.0.2
