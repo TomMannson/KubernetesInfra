@@ -6,6 +6,7 @@ resources:
   - recipeservice-app-service.yaml
   - recipeservice-app-config.yaml
   - recipeservice-app-secrets.yaml
+  - recipedb-owner-secret.yaml
 
 images:
   - name: cookbook-server
