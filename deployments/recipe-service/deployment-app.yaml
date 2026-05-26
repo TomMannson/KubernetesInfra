@@ -34,9 +34,9 @@ spec:
             - containerPort: 3001
           envFrom:
             - configMapRef:
-                name: cookbook-server-config # nie-sekrety (NODE_ENV, PORT, WEB_URL, APP_URL)
+                name: tk-recipeservice-config # nie-sekrety (NODE_ENV, PORT, WEB_URL, APP_URL)
             - secretRef:
-                name: cookbook-server-secrets # sekrety (DATABASE_URL, auth, R2, ...)
+                name: tk-recipeservice-secret # sekrety (DATABASE_URL, auth, R2, ...)
           readinessProbe:
             httpGet:
               path: /healthz
