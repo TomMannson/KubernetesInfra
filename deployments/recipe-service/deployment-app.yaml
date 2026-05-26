@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cookbook-server
+  labels:
+    app: cookbook-server
+spec:
+  replicas: 1
+  strategy:
+    type: Recreate # 1 replika + migracje w init -> unikamy 2 podów naraz
+  selector:
+    matchLabels:
+      app: cookbook-server
+  template:
+    metadata:
+      labels:
+        app: cookbook-server
+    spec:
+      # Migracje PRZED startem serwera. `prisma migrate deploy` jest idempotentne,
+      # więc bezpiecznie odpala się przy każdym rolloucie.
+      # initContainers:
+      #   - name: migrate
+      #     image: cookbook-prisma # podmieniany przez images: w kustomization.yaml
+      #     env:
+      #       - name: DATABASE_URL
+      #         valueFrom:
+      #           secretKeyRef:
+      #             name: cookbook-prisma-server-secrets
+      #             key: DATABASE_URL
+      containers:
+        - name: server
+          image: cookbook-server # podmieniany przez images: w kustomization.yaml
+          ports:
+            - containerPort: 3001
+          envFrom:
+            - configMapRef:
+                name: cookbook-server-config # nie-sekrety (NODE_ENV, PORT, WEB_URL, APP_URL)
+            - secretRef:
+                name: cookbook-server-secrets # sekrety (DATABASE_URL, auth, R2, ...)
+          readinessProbe:
+            httpGet:
+              path: /healthz
+              port: 3001
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: 3001
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              memory: 512Mi

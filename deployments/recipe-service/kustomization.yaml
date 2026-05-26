@@ -1,0 +1,13 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - deployment-app.yaml
+  - recipeservice-app-service.yaml
+  - recipeservice-app-config.yaml
+  - recipeservice-app-secrets.yaml
+
+images:
+  - name: cookbook-server
+    newName: docker.io/tommannson/recipeapp-backend
+    newTag: 0.0.1
