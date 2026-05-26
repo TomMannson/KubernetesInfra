@@ -1,0 +1,36 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: cookbook
+  annotations:
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  ingressClassName: traefik
+  tls:
+    - hosts:
+        - recipes.app.legacybuster.com
+  rules:
+    - host: recipes.app.legacybuster.com
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: cookbook-server
+                port:
+                  number: 3001
+          - path: /gate
+            pathType: Prefix
+            backend:
+              service:
+                name: cookbook-server
+                port:
+                  number: 3001
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: cookbook-web
+                port:
+                  number: 80

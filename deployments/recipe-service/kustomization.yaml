@@ -7,6 +7,9 @@ resources:
   - recipeservice-app-config.yaml
   - recipeservice-app-secrets.yaml
   - recipedb-owner-secret.yaml
+  - deployment-web.yaml
+  - recipeservice-web-service.yaml
+  - ingress.yaml
 
 images:
   - name: cookbook-server
@@ -15,3 +18,12 @@ images:
   - name: cookbook-prisma
     newName: docker.io/tommannson/recipeapp-db
     newTag: 0.0.2
+  - name: cookbook-web
+    newName: docker.io/tommannson/recipeapp-web
+    newTag: 0.0.1
+
+
+configMapGenerator:
+  - name: cookbook-web-config
+    files:
+      - config.js
