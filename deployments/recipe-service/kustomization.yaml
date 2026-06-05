@@ -20,7 +20,7 @@ images:
     newTag: 0.0.2
   - name: cookbook-web
     newName: docker.io/tommannson/recipeapp-web
-    newTag: 0.0.2
+    newTag: 0.0.3
 
 
 configMapGenerator:
